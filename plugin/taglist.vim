@@ -941,8 +941,15 @@ function! s:Tlist_FileType_Init(ftype)
         let ctags_flags = ctags_flags . flag
     endwhile
 
-    let s:tlist_{a:ftype}_ctags_args = '--language-force=' . ctags_ftype .
-                            \ ' --' . ctags_ftype . '-types=' . ctags_flags
+    " add using ctags --option setting
+    let l:useoptionfile = 'g:tlist_' . a:ftype . '_arg_optionfile'
+    if exists(l:useoptionfile)
+        let s:tlist_{a:ftype}_ctags_args = '--options=' . expand({l:useoptionfile}) .
+                                \ ' --' . ctags_ftype . '-types=' . ctags_flags
+    else
+        let s:tlist_{a:ftype}_ctags_args = '--language-force=' . ctags_ftype .
+                                \ ' --' . ctags_ftype . '-types=' . ctags_flags
+    endif
     let s:tlist_{a:ftype}_count = cnt
     let s:tlist_{a:ftype}_ctags_flags = ctags_flags
 
