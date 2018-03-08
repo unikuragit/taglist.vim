@@ -2110,9 +2110,15 @@ function! s:Tlist_Get_Tag_SearchPat(fidx, tidx)
     if tag_line[end - 1] == '$'
         let end = end -1
     endif
-    let {tpat_var} = '\V\^' . strpart(tag_line, start, end - start) .
+    let line = strpart(tag_line, start, end - start)
+    if get(g:, 'Tlist_Ignore_Tag_Jump_Pattern', '') != ''
+      let line = substitute(line, g:Tlist_Ignore_Tag_Jump_Pattern, '\\.\\*', 'g')
+    endif
+
+    let {tpat_var} = '\V\^' . line .
                         \ (tag_line[end] == '$' ? '\$' : '')
 
+    call s:Tlist_Log_Msg('Tlist_Get_Tag_SearchPat tag_line= ' . {tpat_var})
     return {tpat_var}
 endfunction
 
