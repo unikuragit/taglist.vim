@@ -4133,7 +4133,7 @@ function! s:Tlist_Refresh_Folds()
             if s:tlist_{fidx}_{ttype}_count
                 let s = s:tlist_{fidx}_start + s:tlist_{fidx}_{ttype}_offset
                 let e = s + s:tlist_{fidx}_{ttype}_count
-                exe s . ',' . e . 'fold'
+                silent! exe s . ',' . e . 'fold'
             endif
             let j = j + 1
         endwhile
