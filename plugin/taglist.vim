@@ -942,7 +942,7 @@ function! s:Tlist_FileType_Init(ftype)
     endwhile
 
     " add using ctags --option setting
-    let l:useoptionfile = 'g:tlist_' . a:ftype . '_arg_optionfile'
+    let l:useoptionfile = 'g:tlist_optionfile'
     if exists(l:useoptionfile)
         let s:tlist_{a:ftype}_ctags_args = '--options=' . expand({l:useoptionfile}) .
                                 \ ' --' . ctags_ftype . '-types=' . ctags_flags
